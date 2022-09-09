@@ -13,8 +13,15 @@
 
     <h1>Home</h1>
    <p> <%= homecnt %> </p>
-    <p><%= aboutcnt %> </p>
-    <p><%= contactcnt %> </p>
+   <!-- <% for(var i=0 ; i < composedpost.length ; i++){ %>
+    <h1><%=composedpost[i].title%></h1>
+    <p> <%=composedpost[i].textarea%></p>
+    <%  }  %> -->
+
+ <% composedpost.forEach(function(post){  %>
+  <h1><%=     post.title  %></h1>
+  <p><%=     post.textarea  %></p>
+   <% })  %>
 
     
     <%- include('partials/footer.ejs') %>.

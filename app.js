@@ -9,6 +9,7 @@ const ejs = require("ejs");
  const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rhoncus urna neque viverra justo nec ultrices. Arcu dui vivamus arcu felis bibendum. Consectetur adipiscing elit duis tristique. Risus viverra adipiscing at in tellus integer feugiat. Sapien nec sagittis aliquam malesuada bibendum arcu vitae. Consequat interdum varius sit amet mattis. Iaculis nunc sed augue lacus. Interdum posuere lorem ipsum dolor sit amet consectetur adipiscing elit. Pulvinar elementum integer enim neque. Ultrices gravida dictum fusce ut placerat orci nulla. Mauris in aliquam sem fringilla ut morbi tincidunt. Tortor posuere ac ut consequat semper viverra nam libero.";
 
 const app = express();
+let posts = [];
 
 app.set('view engine', 'ejs');
 
@@ -18,7 +19,37 @@ app.use(express.static("public"));
 // GET REQUEST 
 app.get("/",function(req,res){
   
-  res.render("home",{homecnt: homeStartingContent, aboutcnt: aboutContent , contactcnt: contactContent})
+  res.render("home",{homecnt: homeStartingContent , composedpost: posts})
+  console.log(posts);
+})
+
+app.get("/about" , function(req,res){
+  res.render("about" , { aboutcnt: aboutContent })
+})
+
+app.get("/contact" , function(req,res){
+  res.render("contact" , { contactcnt: contactContent })
+})
+
+app.get("/compose" , function(req,res){
+  res.render("compose")
+})
+
+app.post("/compose", function(req,res){
+ const post = {
+    title : req.body.title,
+    textarea: req.body.textarea
+
+  };
+  posts.push(post)
+   
+  res.redirect("/")
+ 
+
+})
+// dynamic routes for posts
+app.get("/posts/:postName" , function(req,res){
+  console.log(req.params.postName)
 })
 
 app.listen(3000,function(){
